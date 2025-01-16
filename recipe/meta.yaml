@@ -6,24 +6,24 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/lckr_jupyterlab_variableinspector-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/lckr_jupyterlab_variableinspector-{{ version }}.tar.gz
   sha256: 9bad61401ef24cbdd4bc000d882038bbdd9d79550f624bd1930978dd56dddf7b
 
 build:
   noarch: python
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - hatchling >=1.5.0
     - jupyterlab >=4.0.0,<5
     - hatch-nodejs-version >=0.3.2
     - pip
     - hatch-jupyter-builder
   run:
-    - python >=3.8
+    - python >={{ python_min }}
 
 test:
   imports:
@@ -32,6 +32,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/jupyterlab-contrib/jupyterlab-variableInspector
